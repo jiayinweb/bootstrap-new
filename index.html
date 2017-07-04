@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <style>
+    * {margin: 0;padding: 0}
+    .carousel-indicators{left:80%;top:10%;width:40%}
+    .carousel-inner img{display:inline-block !important;margin-top:20px}
+    .panel-title a:focus{text-decoration: none}
+    .panel-title a:hover{text-decoration: none}
+    .panel-default .red{background:#f04949;color:white}
+    .navbar-default {background: none;border: none}
+    .navbar-collapse.in{overflow-y:visible !important}
+    .navbar-form .form-control { background: none}
+    .navbar{margin-bottom:0}
+    @media(max-width:768px){
+      .carousel-indicators{left:60%;top:2%}
+    }
+    @media(max-width:992px){
+      .main-top span{font-size:12px}
+      .main-top li{padding-left:2px !important;padding-right:2px !important;padding-top:2px !important;}
+    }
+
+    @media (min-width:0) {
+      .main-value p{width:100% !important;}
+      p{font-size:10px !important;}
+      h1{font-size:20px !important;}
+      nav .nav li .active {border-left: 3px solid #f04949;border-top:none;}
+      nav .nav li a {border-left: 3px solid #283036;border-top:none;transition: all 0.5s}
+      nav .nav li a:before {transition: all 0.5s;content: "";width: 4px;height: 4px;transform: rotateZ(45deg);position: absolute;top:45%;  left:-2px;  display: block;  background: #283036  }
+      nav .nav li .active:before {  content: "";  width: 4px;  height: 4px;  transform: rotateZ(45deg);  position: absolute;  top:45%;  left:-2px;  display: block;  background: #f04949  }
+    @media (min-width: 768px) {
+      .main-value p{width:50% !important;}
+      p{font-size:16px !important;}  h1{font-size:30px !important;}  .navbar-form{padding-top: 3px;}  nav .nav li a:before {  display:none;  }
+      nav .nav li .active:before {  display:none;  }
+      nav .nav li .active {  border-top: 3px solid #f04949;  border-left:none;  }
+      nav .nav li a {  border-top: 3px solid #283036;  border-left:none;  transition: all 0.5s  }
+      nav .nav li a:after {  transition: all 0.5s;  content: "";  width: 4px;  height: 4px;  transform: rotateZ(45deg);  position: absolute;  top: -2px;  left: 45%;  display: block;  background: #283036  }
+      nav .nav li .active:after {  content: "";  width: 4px;  height: 4px;  transform: rotateZ(45deg);  position: absolute;  top:-2px;  left:45%;  display: block;  background: #f04949  }  }  }
+    header{background:#f04949;padding-top:50px;padding-bottom: 30px}
+    [class*="col-"]{box-sizing: border-box}
+    .choose ul{display:flex;width: 100%;flex-wrap: wrap }
+    .choose li{margin-left:0 !important;flex-grow: 20;text-align: center}
+    .choose li a{transition: all 0.5s}
+    .choose li a:focus{background:none !important;}
+    .choose li a:hover{background:none !important;}
+    .choose .koko{background:#f04949}
+    .choose .koko a{color:white !important;}
+    .choose li{border-radius: 5px}
+    .choose .red{background:#f04949 !important;}
+    .choose .red p{color:white !important;}
+    .choose .red h5{color:white !important;}
+    .main-top{background:#1f272d}
+    .abc{width:30px;height:30px;background:#f04949;border-radius: 50%;position:fixed;right:5%;bottom: 10%;z-index: 100000;display:none }
+    .font p{font-size:12px !important;line-height:18px !important;margin-bottom:0;color:white}
+    .font p:nth-child(2){font-size:16px !important;}
+  </style>
+  <script>
+    $(function () {
+      window.onscroll=function(){
+          if(document.body.scrollTop>=800){
+              $(".abc").show()
+          }else{
+            $(".abc").hide()
+          }
+      };
+      $(".abc").click(function(){
+        $('body,html').animate({ scrollTop:0}, 500);
+      });
+      var value=$(`
+          <li style="padding:10px 0 10px 15px"><span style="color:white;text-align: center;padding:5px 35px;background: url('images/awesome_modify_03.jpg') no-repeat 1px 3px">Sunday, February 16 ,2014</span>
+</li>
+          <li style="padding:10px 0 10px 15px"><span style="color:white;text-align: center;padding:5px 35px;background: url('images/awesome_modify_05.jpg') no-repeat 1px 3px">+86 13816650562</span>
+</li>
+          <li style="padding:10px 0 20px 15px"><span style="color:white;text-align: center;padding:5px 35px;background: url('images/awesome_modify_07.jpg') no-repeat 0 2px">yourmail@gmail.com</span>
+</li>
+          <li style="float:left;padding:0 9px 0 15px"><img src="images/awesome_modify_09.jpg" alt="" class="img-responsive"></li>
+          <li style="float:left;padding:0 9px"><img src="images/awesome_modify_11.jpg" alt="" class="img-responsive"></li>
+          <li style="float:left;padding:0 9px"><img src="images/awesome_modify_13.jpg" alt="" class="img-responsive"></li>
+          <li style="float:left;padding:0 9px"><img src="images/awesome_modify_15.jpg" alt="" class="img-responsive"></li>
+          <li style="float:left;padding:0 9px"><img src="images/awesome_modify_17.jpg" alt="" class="img-responsive"></li>`);
+      function change(){
+
+        if($(window).width()<=750){
+          $(".main-top").hide();
+          value.appendTo($("nav ul"));
+        }else{
+          $(".main-top").show();
+          value.remove()
+        }
+      }
+      change();
+      window.onresize=function(){
+        change()
+      };
+      $("nav .nav a").click(function () {
+        $("nav .nav a").removeClass("active");
+        $(this).addClass("active");
+      });
+      $(".choose li").click(function(){
+        $(".choose li").removeClass("koko");
+        $(this).addClass("koko");
+        $(".choose .change").removeClass("red");
+        $(".choose .change").eq($(this).index()).addClass("red");
+      });
+      $(".choose .change").click(function(){
+        $(".choose .change").removeClass("red");
+        $(this).addClass("red");
+        $(".choose li").removeClass("koko");
+        $(".choose li").eq($(this).parent().index()).addClass("koko");
+      });
+      var index =0;
+      $(".panel-heading a").click(function(){
+        $(".panel-heading span").removeClass("glyphicon-plus");
+        $(".panel-heading span").addClass("glyphicon-minus");
+        $(".panel-heading").removeClass("red");
+        if($(this).parent().parent().parent().index()==index){
+          index=-1;
+          return ""
+        }else{
+          $(this).parent().find("span").removeClass("glyphicon-minus");
+          $(this).parent().find("span").addClass("glyphicon-plus");
+          $(this).parent().parent().addClass("red");
+          index=$(this).parent().parent().parent().index()
+        }
+
+
+      })
+    })
+  </script>
+</head>
+<body>
+<div class="abc"><div style="width:8px;height:8px;border-top:1px solid white;border-left:1px solid white;position:absolute;top:43%;left:36%;transform: rotateZ(45deg)"></div></div>
+<div class="main-top">
+  <div class="container" style="padding:10px 0">
+    <div class="row" style="margin:0">
+            <div class="col-sm-10 col-xs-10 col-md-8 col-lg-9 col-sm-offset-0">
+                  <span style="color:#6d6d6d;text-align: center;padding:5px 25px;background: url('images/awesome_modify_03.jpg') no-repeat 1px 3px">Sunday, February 16 ,2014</span>
+              <span style="color:#6d6d6d;text-align: center;padding:5px 25px;background: url('images/awesome_modify_05.jpg') no-repeat 1px 3px">+86 13816650562</span>
+              <span style="color:#6d6d6d;text-align: center;padding:5px 25px;background: url('images/awesome_modify_07.jpg') no-repeat 0 2px">yourmail@gmail.com</span>
+
+            </div>
+      <div class="col-sm-2 col-xs-2 col-md-4 col-lg-3 col-sm-offset-0">
+        <ul style="list-style: none;text-align: center">
+          <li style="float:left;padding:0 9px"><img src="images/awesome_modify_09.jpg" alt="" class="img-responsive"></li>
+          <li style="float:left;padding:0 9px"><img src="images/awesome_modify_11.jpg" alt="" class="img-responsive"></li>
+          <li style="float:left;padding:0 9px"><img src="images/awesome_modify_13.jpg" alt="" class="img-responsive"></li>
+          <li style="float:left;padding:0 9px"><img src="images/awesome_modify_15.jpg" alt="" class="img-responsive"></li>
+          <li style="float:left;padding:0 9px"><img src="images/awesome_modify_17.jpg" alt="" class="img-responsive"></li>
+        </ul>
+      </div>
+            </div>
+      </div>
+  </div>
+</div>
+<nav class="navbar navbar-default " style="background:#283036;padding:5px 0">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" style="display:block;height:100%;padding:5px 10px">
+        <img alt="Brand" src="images/logo.png" style="height:40px">
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-right">
+        <div class="form-group">
+          <input type="text" class="form-control" style="outline:none;width:100px;background:url('images/search_03.png') no-repeat 0 50%;border: none;text-indent:1em">
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" style="color:white" class="active">Home</a></li>
+        <li><a href="#" style="color:white">About</a></li>
+        <li><a href="#" style="color:white">Portfolios</a></li>
+        <li><a href="#" style="color:white">Our Products</a></li>
+        <li><a href="#" style="color:white">Contact Us</a></li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 col-xs-6 col-xs-offset-3 col-sm-offset-0"  style="text-align:center">
+        <img src="images/img.png" class="img-responsive">
+      </div>
+      <div class="col-sm-6 col-xs-12" style="text-align: center">
+        <h1 style="color:white;text-align:left">An Amazing Responsive wordpress theme</h1>
+        <p style="color:white;text-align:left">Lorem ipsum ex vix illud nonummy novum tation et his. At vix scriptaset patrioque scribentur, at pro fugit erts verterem molestiae, sed et vivendo ali Lorem ipsum ex vix illud nonummy, novum tation et his. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus.</p>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container"  style="margin-top: 30px">
+  <div class="row">
+      <div class="col-xs-12">
+        <h4 style="color:#f47a7a;text-align: center">Some Amazing Features</h4>
+      </div>
+      <div class="col-xs-12">
+        <p style="font-size:12px;text-align: center">Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla dui. Fusce feugiat malesuada odio. Morbi nunc odio, gravida at.Cursus nec, luctus a, lorem. Maecenas tristique orci ac sem. Duis ultricies pharetra magna. Donec accumsan malesuada orci. Donec sit amet erorem ipsum dolor sit amet consectetuer adipiscing elit. Mauris fermentum dictum magna.</p>
+      </div>
+  </div>
+</div>
+<div class="container choose" style="margin-top: 50px">
+  <div class="row">
+      <div class="col-xs-12 col-sm-5">
+          <h5>Recent Portfolio</h5>
+      </div>
+      <div class="col-xs-12 col-sm-7">
+        <ul class="nav nav-pills ">
+          <li role="presentation" class="koko" ><a style="font-size:12px;color:#696969">ALL</a></li>
+          <li role="presentation"  ><a style="font-size:12px;color:#696969">CATEGORY1</a></li>
+          <li role="presentation"  ><a style="font-size:12px;color:#696969">CATEGORY2</a></li>
+          <li role="presentation"  ><a style="font-size:12px;color:#696969">CATEGORY3</a></li>
+        </ul>
+      </div>
+  </div>
+  <div class="row" style="text-align: center">
+    <div class="col-md-3 col-sm-6 col-xs-12" style="padding:20px">
+        <div class="red change" style="background:#ebebeb;padding:5px;text-align: center;display: inline-block;border-radius: 5px">
+          <img src="images/tc 113.png" class="img-responsive">
+          <h5>Responsive Design</h5>
+          <p>Quisque euismod orci ut et ..</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12" style="padding:20px">
+      <div class="change" style="background:#ebebeb;padding:5px;display: inline-block;border-radius: 5px">
+        <img src="images/tc 114.png" class="img-responsive">
+        <h5>Responsive Design</h5>
+        <p>Quisque euismod orci ut et ..</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12" style="padding:20px">
+      <div class="change" style="background:#ebebeb;padding:5px;text-align: center;display: inline-block;border-radius: 5px">
+        <img src="images/tc 115.png" class="img-responsive">
+        <h5>Responsive Design</h5>
+        <p>Quisque euismod orci ut et ..</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12" style="padding:20px">
+      <div class="change"  style="background:#ebebeb;padding:5px;text-align: center;display: inline-block;border-radius: 5px">
+        <img src="images/tc 116.png" class="img-responsive">
+        <h5>Responsive Design</h5>
+        <p>Quisque euismod orci ut et ..</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid main-value" style="padding:0;background:url('images/tc%20110.png') no-repeat center;background-size: cover;background-attachment: fixed">
+      <div style="padding:60px 0;height:100%;background-color: rgba(0,0,0,0.4);text-align: center">
+            <h2 style="margin:0;color:white;padding-top:10vh;line-height:50px">Welcome to our website!</h2>
+            <p style="color:white;width:50%;margin:0 auto;line-height:30px">We're experts in this field and we strive to provide high-quality web design, custom development and maintenance. Our goal is to provide unique design, powerful and practical functions, easy operation and user-friendly interface.</p>
+            <input class="btn btn-default" type="button" value="Purchase Now" style="margin-top:3vh;background:none;color:white;padding:10px">
+      </div>
+</div>
+<div class="container" style="margin-top:10vh">
+  <div class="row">
+      <div class="col-sm-4 col-xs-12">
+        <div class="media" style="margin-top:20px">
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object" src="images/icoy_03.jpg" alt="...">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading" style="color:#f04949">Full responsive</h4>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut volutpat rutrum eros sit amet ollicitudin.Lorem ipsum dolor sit amet, consectetur.
+          </div>
+        </div>
+      </div>
+    <div class="col-sm-4 col-xs-12">
+      <div class="media" style="margin-top:20px">
+        <div class="media-left">
+          <a href="#">
+            <img class="media-object" src="images/icoy_05.jpg" alt="...">
+          </a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading" style="color:#f04949">Code With Love</h4>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut volutpat rutrum eros sit amet ollicitudin.Lorem ipsum dolor sit amet, consectetur.
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 col-xs-12">
+      <div class="media" style="margin-top:20px">
+        <div class="media-left">
+          <a href="#">
+            <img class="media-object" src="images/icoy_08.jpg" alt="...">
+          </a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading" style="color:#f04949">Professional Customer Service</h4>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut volutpat rutrum eros sit amet ollicitudin.Lorem ipsum dolor sit amet, consectetur.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 mediaChange">
+              <h4 style="margin-top:40px">Last News</h4>
+              <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <div class="media" style="margin-top:20px">
+                      <div class="media-left">
+                        <a href="#">
+                          <div class="font" style="border-top:7px solid #f04949;position: relative;text-align: center">
+                              <div style="position: absolute;left:10%;background:#f04949;padding:2px 8px;font-size:12px">
+                                  <p>Nov</p>
+                                  <p>20</p>
+                              </div>
+                          </div>
+                          <img class="media-object" src="images/tc 121.png" alt="...">
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h4 class="media-heading">Hello World! This is my first post.</h4>
+
+                        Cum soccis natoquo pennatibus et magins dis pennatikus montese,nasatur ridiculus mus
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="media" style="margin-top:20px">
+                      <div class="media-left">
+                        <a href="#" >
+                          <div class="font" style="border-top:7px solid #f04949;position: relative;text-align: center">
+                            <div style="position: absolute;left:10%;background:#f04949;padding:2px 8px;font-size:12px">
+                              <p>Nov</p>
+                              <p>20</p>
+                            </div>
+                          </div>
+                          <img class="media-object" src="images/tc 122.png" alt="...">
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h4 class="media-heading">Hello World! This is my first post.</h4>
+                        Cum soccis natoquo pennatibus et magins dis pennatikus montese,nasatur ridiculus mus
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="media" style="margin-top:20px">
+                      <div class="media-left">
+                        <a href="#">
+                          <div class="font" style="border-top:7px solid #f04949;position: relative;text-align: center">
+                            <div style="position: absolute;left:10%;background:#f04949;padding:2px 8px;font-size:12px">
+                              <p>Nov</p>
+                              <p>20</p>
+                            </div>
+                          </div>
+                          <img class="media-object" src="images/tc 123.png" alt="...">
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h4 class="media-heading">Hello World! This is my first post.</h4>
+
+                        Cum soccis natoquo pennatibus et magins dis pennatikus montese,nasatur ridiculus mus
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="media" style="margin-top:20px">
+                      <div class="media-left">
+                        <a href="#">
+                          <div class="font" style="border-top:7px solid #f04949;position: relative;text-align: center">
+                            <div style="position: absolute;left:10%;background:#f04949;padding:2px 8px;font-size:12px">
+                              <p>Nov</p>
+                              <p>20</p>
+                            </div>
+                          </div>
+                          <img class="media-object" src="images/tc 124.png" alt="...">
+                        </a>
+                      </div>
+                      <div class="media-body">
+                        <h4 class="media-heading">Hello World! This is my first post.</h4>
+
+                        Cum soccis natoquo pennatibus et magins dis pennatikus montese,nasatur ridiculus mus
+                      </div>
+                    </div>
+                  </div>
+              </div>
+        </div>
+        <div class="col-sm-4">
+          <h4 style="margin-top:40px">Our Service</h4>
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-top:30px">
+            <div class="panel panel-default">
+              <div class="panel-heading red" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    MANAGEMENT CONSULTING
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                  Lorem ipsum dolor sit amet, consectetur scing elit. Ut volutpat rutrum eros sit amet ollicitudin.Lorem ipsum dolor sit amet, consectetur.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut volutpat rutrum eros sit amet ollicitudin.Lorem ipsum dolor sit amet, consectetur.Lorem ipsum dolor sit amet, consectetur avolutpat ru.Lorem ipsum dolor sit amet, consectetur.
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <span class="glyphicon glyphicon-minus"></span>
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    MANAGEMENT CONSULTING                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                  Lorem ipsum dolor sit amet, consectetur scing elit. Ut volutpat rutrum eros sit amet ollicitudin.Lorem ipsum dolor sit amet, consectetur.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut volutpat rutrum eros sit amet ollicitudin.Lorem ipsum dolor sit amet, consectetur.Lorem ipsum dolor sit amet, consectetur avolutpat ru.Lorem ipsum dolor sit amet, consectetur.                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                  <span class="glyphicon glyphicon-minus"></span>
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    MANAGEMENT CONSULTING                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                  Lorem ipsum dolor sit amet, consectetur scing elit. Ut volutpat rutrum eros sit amet ollicitudin.Lorem ipsum dolor sit amet, consectetur.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut volutpat rutrum eros sit amet ollicitudin.Lorem ipsum dolor sit amet, consectetur.Lorem ipsum dolor sit amet, consectetur avolutpat ru.Lorem ipsum dolor sit amet, consectetur.                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="padding:50px 0;background:#f04949;margin-top:30px">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <div class="container">
+        <div class="row" style="text-align: center">
+            <h3 style="padding:10px;color:white">Our Team</h3>
+            <p style="padding:0 20%;color:white">orem ipsum dolor sit amet, consectetur scing elit. Ut volutpat rutrsit amet, consectetuum eros sectetur.Lorem ipsum dolorpsu
+              sit amet ollicitudin.Lorem ipsum dolor sit etur.Lorem ipsum dolorpsu.Lorem ipsum dolorpsum dolor sit
+              amet, consectetur scing elit. Ut volutpat rutrum e</p>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t1210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t2210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t3210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t4210_03.jpg" alt="" class="img-circle img-responsive"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="container">
+        <div class="row" style="text-align: center">
+          <h3 style="padding:10px;color:white">Our Team</h3>
+          <p style="padding:0 20%;color:white">orem ipsum dolor sit amet, consectetur scing elit. Ut volutpat rutrsit amet, consectetuum eros sectetur.Lorem ipsum dolorpsu
+            sit amet ollicitudin.Lorem ipsum dolor sit etur.Lorem ipsum dolorpsu.Lorem ipsum dolorpsum dolor sit
+            amet, consectetur scing elit. Ut volutpat rutrum e</p>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t1210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t2210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t3210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t4210_03.jpg" alt="" class="img-circle img-responsive"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="container">
+        <div class="row" style="text-align: center">
+          <h3 style="padding:10px;color:white">Our Team</h3>
+          <p style="padding:0 20%;color:white">orem ipsum dolor sit amet, consectetur scing elit. Ut volutpat rutrsit amet, consectetuum eros sectetur.Lorem ipsum dolorpsu
+            sit amet ollicitudin.Lorem ipsum dolor sit etur.Lorem ipsum dolorpsu.Lorem ipsum dolorpsum dolor sit
+            amet, consectetur scing elit. Ut volutpat rutrum e</p>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t1210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t2210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t3210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t4210_03.jpg" alt="" class="img-circle img-responsive"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="container">
+        <div class="row" style="text-align: center">
+          <h3 style="padding:10px;color:white">Our Team</h3>
+          <p style="padding:0 20%;color:white">orem ipsum dolor sit amet, consectetur scing elit. Ut volutpat rutrsit amet, consectetuum eros sectetur.Lorem ipsum dolorpsu
+            sit amet ollicitudin.Lorem ipsum dolor sit etur.Lorem ipsum dolorpsu.Lorem ipsum dolorpsum dolor sit
+            amet, consectetur scing elit. Ut volutpat rutrum e</p>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t1210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t2210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t3210_02.jpg" alt="" class="img-circle img-responsive"></div></div>
+          <div class="col-md-3 col-sm-6 col-xs-12" style="text-align:center"><div style="display:inline-block"><img src="images/t4210_03.jpg" alt="" class="img-circle img-responsive"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer style="text-align: center;padding:60px 0;background:#283036">
+  <div style="display: inline-block"><img src="images/logo.png" alt="" class="img-responsive"></div>
+  <p style="color:white;margin:20px 0">COPYRIGHT BY 2012 AWESOME</p>
+  <p style="color:white">COPYRIGHT BY 2012 AWESOME | PRIVACY STATEMENT | TERMS OF USE</p>
+</footer>
+</body>
+</html>
